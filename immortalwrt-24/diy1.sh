@@ -13,8 +13,5 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
-
-# 自定义软件源
-git clone --depth 1 -b main https://github.com/QiYueYiya/openwrt-packages.git package/openwrt-packages
 # Easytier
 git clone --depth 1 -b main https://github.com/EasyTier/luci-app-easytier.git package/package-easytier
