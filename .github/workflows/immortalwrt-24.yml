@@ -6,14 +6,11 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * *'  # 每天凌晨4点执行
+    - cron: '0 4 * * *'
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git
   REPO_BRANCH: openwrt-24.10
-  TOOLCHAIN_TAG: immortalwrt-toolchain
-  UPLOAD_FIRMWARE: false
-  UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
   openwrt_root: /mnt/openwrt
 
@@ -72,12 +69,13 @@ jobs:
         cd ${{ env.openwrt_root }}
         make -j$(nproc) || make -j1 V=s
 
-    - name: Upload firmware artifact (optional)
-      if: success() && env.UPLOAD_FIRMWARE == 'true'
-      uses: actions/upload-artifact@v2
-      with:
-        name: openwrt-firmware-${{ github.run_id }}
-        path: ${{ env.openwrt_root }}/bin/targets/
+    # 上传步骤暂时注释，确认编译正常后再启用
+    # - name: Upload firmware artifact (optional)
+    #   if: success() && env.UPLOAD_FIRMWARE == 'true'
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: openwrt-firmware-${{ github.run_id }}
+    #     path: ${{ env.openwrt_root }}/bin/targets/
 
     - name: Telegram notification (optional)
       if: always()
