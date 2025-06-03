@@ -68,28 +68,6 @@ uci -q delete dhcp.lan.ndp
 # uci set dhcp.@dnsmasq[0].filter_aaaa="1"
 uci commit dhcp
 
-#==========================Firewall==========================
-# 默认设置WAN口防火墙打开
-uci set firewall.@zone[1].input='ACCEPT'
-uci commit firewall
-
-#==========================Network==========================
-# 删除 WAN6 口
-uci -q delete network.wan6
-# 设置拨号协议
-if $enable_pppoe; then
-	uci set network.wan.proto="pppoe"
-	echo "PPPoE_Protocol configuration completed successfully." >> $LOGFILE
-fi
-if [ -n "${pppoe_account}" ]; then
-   uci set network.wan.username=$pppoe_account
-   echo "PPPoE_Account configuration completed successfully." >> $LOGFILE
-fi
-if [ -n "${pppoe_password}" ]; then
-   uci set network.wan.password=$pppoe_password
-   echo "PPPoE_Password configuration completed successfully." >> $LOGFILE
-fi
-uci commit network
 
 #==========================System==========================
 # 更改名称
