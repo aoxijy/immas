@@ -36,8 +36,8 @@ jobs:
 
     - name: Copy diy1.sh and diy2.sh scripts
       run: |
-        cp scripts/diy1.sh .
-        cp scripts/diy2.sh .
+        cp immortalwrt-24/diy1.sh .
+        cp immortalwrt-24/diy2.sh .
         chmod +x diy1.sh diy2.sh
 
     - name: Run diy1.sh (Before feeds update)
@@ -74,7 +74,7 @@ jobs:
 
     - name: Upload firmware artifact (optional)
       if: success() && env.UPLOAD_FIRMWARE == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: openwrt-firmware-${{ github.run_id }}
         path: ${{ env.openwrt_root }}/bin/targets/
