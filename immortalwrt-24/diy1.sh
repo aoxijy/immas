@@ -23,3 +23,11 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,sing*,smartdns}
 rm -rf feeds/packages/utils/v2dat
 rm -rf feeds/packages/lang/golang
+# 替换 golang 包为 kenzok8 的版本（支持 golang 1.22+）
+git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+
+# 安装所有 feeds
+./scripts/feeds install -a
+
+# 去掉 gn 包的 -Werror，避免编译因警告失败
+find feeds/packages/devel/gn -type f -exec sed -i 's/-Werror//g' {} +
