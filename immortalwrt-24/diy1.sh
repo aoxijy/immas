@@ -15,7 +15,7 @@
 # sed -i '$a src-git small8 https://github.com/kenzok8/small-package' feeds.conf.default
 
 # 自定义软件源
-git clone --depth 1 -b master https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
-git clone --depth 1 -b master https://github.com/kenzok8/small.git package/openwrt-packages
+sed -i '1i src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+sed -i '2i src-git small https://github.com/kenzok8/small' feeds.conf.default
 # Easytier
 git clone --depth 1 -b main https://github.com/EasyTier/luci-app-easytier.git package/package-easytier
