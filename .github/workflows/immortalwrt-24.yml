@@ -23,7 +23,7 @@ on:
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git
   REPO_BRANCH: openwrt-24.10
-  CACHE_REPO: kenzok8/small
+  CACHE_REPO: ''
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
@@ -72,7 +72,15 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: 更新并安装软件源
-      run: cd $openwrt_root && ./scripts/feeds update -a && ./scripts/feeds install -a
+      run: |
+        cd $openwrt_root
+        ./scripts/feeds update -a
+        rm -rf feeds/luci/applications/luci-app-mosdns
+        rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,sing*,smartdns}
+        rm -rf feeds/packages/utils/v2dat
+        rm -rf feeds/packages/lang/golang
+        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+        ./scripts/feeds install -a
 
     - name: 加载自定义配置
       env:
