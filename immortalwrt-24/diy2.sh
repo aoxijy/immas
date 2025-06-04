@@ -8,22 +8,8 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # File name: diy-part2.sh
 # Description: OpenWrt DIY script part 2 (After Update feeds)
-# 更新所有 feeds
-./scripts/feeds update -a
+#
 
-# 克隆替换 golang
-git clone --depth 1 https://github.com/kenzok8/golang feeds/packages/lang/golang
-
-# 安装所有 feeds
-./scripts/feeds install -a
-
-# 删除可能冲突或重复的包（如果确实需要）
-rm -rf feeds/luci/applications/luci-app-mosdns
-rm -rf feeds/packages/net/{alist,adguardhome,mosdns,xray*,v2ray*,sing*,smartdns}
-rm -rf feeds/packages/utils/v2dat
-
-# 去掉 gn 包的 -Werror，避免编译因警告失败
-find feeds/packages/devel/gn -type f -exec sed -i 's/-Werror//g' {} +
 # 修改默认IP地址
 sed -i "s/192.168.1.1/172.18.18.222/g" package/base-files/files/bin/config_generate
 # 修改设备说明
