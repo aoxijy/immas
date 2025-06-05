@@ -100,7 +100,7 @@ jobs:
           files: |
             ${{ github.workspace }}/*squashfs-combined-efi.img.gz
             ${{ github.workspace }}/*.sha256
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
